@@ -1,0 +1,983 @@
+{
+    "info": {
+        "_postman_id": "5ebd8738-e531-47ab-ab21-53b34ab41c34",
+        "name": "CTK-General_Test_Artifact-4.0.0",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "N1",
+            "item": [
+                {
+                    "name": "/GeneralTestArtifact",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "var jsonData = pm.response.json();",
+                                    "",
+                                    "if (Array.isArray(jsonData)) { ",
+                                    "  ",
+                                    "    pm.test('Array not expected as response', function (){pm.expect.fail()});",
+                                    "  ",
+                                    "",
+                                    "}",
+                                    "",
+                                    "pm.test(\"Status code is 201\", function () {",
+                                    "  pm.response.to.have.status(201);",
+                                    "});",
+                                    "",
+                                    "var instance = pm.response.json();",
+                                    "var requiredAttributes = ['description', 'href', 'id', 'version'];",
+                                    "",
+                                    "pm.test('Instance has all mandatory attributes', function () { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) });",
+                                    "",
+                                    "",
+                                    "",
+                                    "pm.test('Response has description attribute', function() { pm.expect(instance[\"description\"]).to.be.a('string'); });",
+                                    "pm.test('Response has href attribute', function() { pm.expect(instance[\"href\"]).to.be.a('string'); });",
+                                    "pm.test('Response has id attribute', function() { pm.expect(instance[\"id\"]).to.be.a('string'); });",
+                                    "pm.test('Response has version attribute', function() { pm.expect(instance[\"version\"]).to.be.a('string'); });",
+                                    "",
+                                    "pm.globals.set('DESCRIPTIONGTA01', instance['description']);",
+                                    "pm.globals.set('HREFGTA01', instance['href']);",
+                                    "pm.globals.set('IDGTA01', instance['id']);",
+                                    "pm.globals.set('VERSIONGTA01', instance['version']);",
+                                    "",
+                                    "pm.test('Body includes value held on description', function () {",
+                                    "  pm.expect(pm.response.text()).to.include(instance['description']);",
+                                    "});",
+                                    "pm.test('Body includes value held on href', function () {",
+                                    "  pm.expect(pm.response.text()).to.include(instance['href']);",
+                                    "});",
+                                    "pm.test('Body includes value held on id', function () {",
+                                    "  pm.expect(pm.response.text()).to.include(instance['id']);",
+                                    "});",
+                                    "pm.test('Body includes value held on version', function () {",
+                                    "  pm.expect(pm.response.text()).to.include(instance['version']);",
+                                    "});",
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"description\": \"Sample general test artifact\",\n  \"version\": \"1.2.3\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{General_Test_Artifact}}generalTestArtifact",
+                            "host": [
+                                "{{General_Test_Artifact}}generalTestArtifact"
+                            ]
+                        },
+                        "description": "This operation creates a GeneralTestArtifact"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/GeneralTestArtifact",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test(\"Status code is 200\", function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "  ",
+                                    "  ",
+                                    "  ",
+                                    "var jsonData = pm.response.json();",
+                                    "  ",
+                                    "if (Array.isArray(jsonData) && (jsonData.length > 0)) {",
+                                    "    jsonData.forEach(function (instance, index) {",
+                                    "      ",
+                                    "        var requiredAttributes = ['description', 'href', 'id', 'version'];",
+                                    "      ",
+                                    "        pm.test('Instance has all mandatory attributes', function () { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) });",
+                                    "      ",
+                                    "      ",
+                                    "      ",
+                                    "        pm.test('Response has description attribute', function() { pm.expect(instance[\"description\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has href attribute', function() { pm.expect(instance[\"href\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has id attribute', function() { pm.expect(instance[\"id\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has version attribute', function() { pm.expect(instance[\"version\"]).to.be.a('string'); });",
+                                    "      ",
+                                    "        pm.test('Body includes value held on description', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['description']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on href', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['href']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on id', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['id']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on version', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['version']);",
+                                    "        });",
+                                    "        // Individualized tests",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA01\")) {",
+                                    "            pm.test('description is ' + pm.globals.get(\"DESCRIPTIONGTA01\"), function() {pm.expect(instance['description']) == pm.globals.get('DESCRIPTIONGTA01');});",
+                                    "            pm.test('href is ' + pm.globals.get(\"HREFGTA01\"), function() {pm.expect(instance['href']) == pm.globals.get('HREFGTA01');});",
+                                    "            pm.test('id is ' + pm.globals.get(\"IDGTA01\"), function() {pm.expect(instance['id']) == pm.globals.get('IDGTA01');});",
+                                    "            pm.test('version is ' + pm.globals.get(\"VERSIONGTA01\"), function() {pm.expect(instance['version']) == pm.globals.get('VERSIONGTA01');});",
+                                    "        }",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA02\")) {",
+                                    "            pm.test('description is ' + pm.globals.get(\"DESCRIPTIONGTA02\"), function() {pm.expect(instance['description']) == pm.globals.get('DESCRIPTIONGTA02');});",
+                                    "            pm.test('href is ' + pm.globals.get(\"HREFGTA02\"), function() {pm.expect(instance['href']) == pm.globals.get('HREFGTA02');});",
+                                    "            pm.test('id is ' + pm.globals.get(\"IDGTA02\"), function() {pm.expect(instance['id']) == pm.globals.get('IDGTA02');});",
+                                    "            pm.test('version is ' + pm.globals.get(\"VERSIONGTA02\"), function() {pm.expect(instance['version']) == pm.globals.get('VERSIONGTA02');});",
+                                    "        }  ",
+                                    "    });",
+                                    "  }",
+                                    "  else {",
+                                    "    var instance = pm.response.json();",
+                                    "    var requiredAttributes = ['description', 'href', 'id', 'version'];",
+                                    "      ",
+                                    "        pm.test('Instance has all mandatory attributes', function () { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) });",
+                                    "      ",
+                                    "      ",
+                                    "      ",
+                                    "        pm.test('Response has description attribute', function() { pm.expect(instance[\"description\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has href attribute', function() { pm.expect(instance[\"href\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has id attribute', function() { pm.expect(instance[\"id\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has version attribute', function() { pm.expect(instance[\"version\"]).to.be.a('string'); });",
+                                    "      ",
+                                    "        pm.test('Body includes value held on description', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['description']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on href', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['href']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on id', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['id']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on version', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['version']);",
+                                    "        });",
+                                    "        // Individualized tests",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA01\")) {",
+                                    "            pm.test('description is ' + pm.globals.get(\"DESCRIPTIONGTA01\"), function() {pm.expect(instance['description']) == pm.globals.get('DESCRIPTIONGTA01');});",
+                                    "            pm.test('href is ' + pm.globals.get(\"HREFGTA01\"), function() {pm.expect(instance['href']) == pm.globals.get('HREFGTA01');});",
+                                    "            pm.test('id is ' + pm.globals.get(\"IDGTA01\"), function() {pm.expect(instance['id']) == pm.globals.get('IDGTA01');});",
+                                    "            pm.test('version is ' + pm.globals.get(\"VERSIONGTA01\"), function() {pm.expect(instance['version']) == pm.globals.get('VERSIONGTA01');});",
+                                    "        }",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA02\")) {",
+                                    "            pm.test('description is ' + pm.globals.get(\"DESCRIPTIONGTA02\"), function() {pm.expect(instance['description']) == pm.globals.get('DESCRIPTIONGTA02');});",
+                                    "            pm.test('href is ' + pm.globals.get(\"HREFGTA02\"), function() {pm.expect(instance['href']) == pm.globals.get('HREFGTA02');});",
+                                    "            pm.test('id is ' + pm.globals.get(\"IDGTA02\"), function() {pm.expect(instance['id']) == pm.globals.get('IDGTA02');});",
+                                    "            pm.test('version is ' + pm.globals.get(\"VERSIONGTA02\"), function() {pm.expect(instance['version']) == pm.globals.get('VERSIONGTA02');});",
+                                    "        }",
+                                    "   ",
+                                    "  }",
+                                    "  ",
+                                    "  "
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{General_Test_Artifact}}generalTestArtifact",
+                            "host": [
+                                "{{General_Test_Artifact}}generalTestArtifact"
+                            ]
+                        },
+                        "description": "This operation search for the created GeneralTestArtifact"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/GeneralTestArtifact/{{IDGTA01}}",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test(\"Status code is 200\", function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "  ",
+                                    "  ",
+                                    "  ",
+                                    "var jsonData = pm.response.json();",
+                                    "  ",
+                                    "if (Array.isArray(jsonData) && (jsonData.length > 0)) {",
+                                    "    jsonData.forEach(function (instance, index) {",
+                                    "      ",
+                                    "        var requiredAttributes = ['description', 'href', 'id', 'version'];",
+                                    "      ",
+                                    "        pm.test('Instance has all mandatory attributes', function () { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) });",
+                                    "      ",
+                                    "      ",
+                                    "      ",
+                                    "        pm.test('Response has description attribute', function() { pm.expect(instance[\"description\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has href attribute', function() { pm.expect(instance[\"href\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has id attribute', function() { pm.expect(instance[\"id\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has version attribute', function() { pm.expect(instance[\"version\"]).to.be.a('string'); });",
+                                    "      ",
+                                    "        pm.test('Body includes value held on description', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['description']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on href', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['href']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on id', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['id']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on version', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['version']);",
+                                    "        });",
+                                    "        // Individualized tests",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA01\")) {",
+                                    "            pm.test('description is ' + pm.globals.get(\"DESCRIPTIONGTA01\"), function() {pm.expect(instance['description']) == pm.globals.get('DESCRIPTIONGTA01');});",
+                                    "            pm.test('href is ' + pm.globals.get(\"HREFGTA01\"), function() {pm.expect(instance['href']) == pm.globals.get('HREFGTA01');});",
+                                    "            pm.test('id is ' + pm.globals.get(\"IDGTA01\"), function() {pm.expect(instance['id']) == pm.globals.get('IDGTA01');});",
+                                    "            pm.test('version is ' + pm.globals.get(\"VERSIONGTA01\"), function() {pm.expect(instance['version']) == pm.globals.get('VERSIONGTA01');});",
+                                    "        }",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA02\")) {",
+                                    "            pm.test('IDGTA02 not expected on this test', function () {",
+                                    "                console.log(\"Non expected resource, may happen if there is a collision on attributes\")",
+                                    "            });",
+                                    "        }",
+                                    "          ",
+                                    "    });",
+                                    "  }",
+                                    "  else {",
+                                    "    var instance = pm.response.json();",
+                                    "    var requiredAttributes = ['description', 'href', 'id', 'version'];",
+                                    "      ",
+                                    "        pm.test('Instance has all mandatory attributes', function () { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) });",
+                                    "      ",
+                                    "      ",
+                                    "      ",
+                                    "        pm.test('Response has description attribute', function() { pm.expect(instance[\"description\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has href attribute', function() { pm.expect(instance[\"href\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has id attribute', function() { pm.expect(instance[\"id\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has version attribute', function() { pm.expect(instance[\"version\"]).to.be.a('string'); });",
+                                    "      ",
+                                    "        pm.test('Body includes value held on description', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['description']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on href', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['href']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on id', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['id']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on version', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['version']);",
+                                    "        });",
+                                    "        // Individualized tests",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA01\")) {",
+                                    "            pm.test('description is ' + pm.globals.get(\"DESCRIPTIONGTA01\"), function() {pm.expect(instance['description']) == pm.globals.get('DESCRIPTIONGTA01');});",
+                                    "            pm.test('href is ' + pm.globals.get(\"HREFGTA01\"), function() {pm.expect(instance['href']) == pm.globals.get('HREFGTA01');});",
+                                    "            pm.test('id is ' + pm.globals.get(\"IDGTA01\"), function() {pm.expect(instance['id']) == pm.globals.get('IDGTA01');});",
+                                    "            pm.test('version is ' + pm.globals.get(\"VERSIONGTA01\"), function() {pm.expect(instance['version']) == pm.globals.get('VERSIONGTA01');});",
+                                    "        }",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA02\")) {",
+                                    "            pm.test('IDGTA02 not expected on this test', function () {",
+                                    "                console.log(\"Non expected resource, may happen if there is a collision on attributes\")",
+                                    "            });",
+                                    "        }",
+                                    "",
+                                    "        ",
+                                    "   ",
+                                    "}",
+                                    "  ",
+                                    "  "
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{General_Test_Artifact}}generalTestArtifact/{{IDGTA01}}",
+                            "host": [
+                                "{{General_Test_Artifact}}generalTestArtifact"
+                            ],
+                            "path": [
+                                "{{IDGTA01}}"
+                            ]
+                        },
+                        "description": "This operation search for one of the created GeneralTestArtifact"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "N2",
+            "item": [
+                {
+                    "name": "/GeneralTestArtifact?fields=description",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test(\"Status code is 200\", function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "var jsonData = pm.response.json();",
+                                    "  ",
+                                    "if (Array.isArray(jsonData) && (jsonData.length > 0)) {",
+                                    "    jsonData.forEach(function (instance, index) {",
+                                    "      ",
+                                    "        var requiredAttributes = ['id','href', 'description'];",
+                                    "      ",
+                                    "        pm.test('Instance must have id, href and filtered attribute', function () { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes)});",
+                                    "        pm.test('Instance has only id, href and filtered attribute', function () { pm.expect(requiredAttributes).to.include.members(Object.keys(instance))});",
+                                    "    });",
+                                    "",
+                                    "    ",
+                                    "}",
+                                    "else { ",
+                                    "  ",
+                                    "    pm.test('Array expected as response', function (){pm.expect.fail()});",
+                                    "  ",
+                                    "",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{General_Test_Artifact}}generalTestArtifact?fields=description",
+                            "host": [
+                                "{{General_Test_Artifact}}generalTestArtifact"
+                            ],
+                            "query": [
+                                {
+                                    "key": "fields",
+                                    "value": "description"
+                                }
+                            ]
+                        },
+                        "description": "This operation filter a GeneralTestArtifact"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/GeneralTestArtifact?description={{DESCRIPTIONGTA01}}",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test(\"Status code is 200\", function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "  ",
+                                    "  ",
+                                    "  ",
+                                    "var jsonData = pm.response.json();",
+                                    "  ",
+                                    "if (Array.isArray(jsonData) && (jsonData.length > 0)) {",
+                                    "    jsonData.forEach(function (instance, index) {",
+                                    "      ",
+                                    "        var requiredAttributes = ['description', 'href', 'id', 'version'];",
+                                    "      ",
+                                    "        pm.test('Instance has all mandatory attributes', function () { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) });",
+                                    "      ",
+                                    "      ",
+                                    "      ",
+                                    "        pm.test('Response has description attribute', function() { pm.expect(instance[\"description\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has href attribute', function() { pm.expect(instance[\"href\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has id attribute', function() { pm.expect(instance[\"id\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has version attribute', function() { pm.expect(instance[\"version\"]).to.be.a('string'); });",
+                                    "      ",
+                                    "        pm.test('Body includes value held on description', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['description']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on href', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['href']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on id', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['id']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on version', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['version']);",
+                                    "        });",
+                                    "        // Individualized tests",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA01\")) {",
+                                    "            pm.test('description is ' + pm.globals.get(\"DESCRIPTIONGTA01\"), function() {pm.expect(instance['description']) == pm.globals.get('DESCRIPTIONGTA01');});",
+                                    "            pm.test('href is ' + pm.globals.get(\"HREFGTA01\"), function() {pm.expect(instance['href']) == pm.globals.get('HREFGTA01');});",
+                                    "            pm.test('id is ' + pm.globals.get(\"IDGTA01\"), function() {pm.expect(instance['id']) == pm.globals.get('IDGTA01');});",
+                                    "            pm.test('version is ' + pm.globals.get(\"VERSIONGTA01\"), function() {pm.expect(instance['version']) == pm.globals.get('VERSIONGTA01');});",
+                                    "        }",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA02\")) {",
+                                    "            pm.test('IDGTA02 not expected on this test', function () {",
+                                    "                console.log(\"Non expected resource, may happen if there is a collision on attributes\")",
+                                    "            });",
+                                    "        }",
+                                    "          ",
+                                    "    });",
+                                    "  }",
+                                    "  else {",
+                                    "    var instance = pm.response.json();",
+                                    "    var requiredAttributes = ['description', 'href', 'id', 'version'];",
+                                    "      ",
+                                    "        pm.test('Instance has all mandatory attributes', function () { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) });",
+                                    "      ",
+                                    "      ",
+                                    "      ",
+                                    "        pm.test('Response has description attribute', function() { pm.expect(instance[\"description\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has href attribute', function() { pm.expect(instance[\"href\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has id attribute', function() { pm.expect(instance[\"id\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has version attribute', function() { pm.expect(instance[\"version\"]).to.be.a('string'); });",
+                                    "      ",
+                                    "        pm.test('Body includes value held on description', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['description']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on href', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['href']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on id', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['id']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on version', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['version']);",
+                                    "        });",
+                                    "        // Individualized tests",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA01\")) {",
+                                    "            pm.test('description is ' + pm.globals.get(\"DESCRIPTIONGTA01\"), function() {pm.expect(instance['description']) == pm.globals.get('DESCRIPTIONGTA01');});",
+                                    "            pm.test('href is ' + pm.globals.get(\"HREFGTA01\"), function() {pm.expect(instance['href']) == pm.globals.get('HREFGTA01');});",
+                                    "            pm.test('id is ' + pm.globals.get(\"IDGTA01\"), function() {pm.expect(instance['id']) == pm.globals.get('IDGTA01');});",
+                                    "            pm.test('version is ' + pm.globals.get(\"VERSIONGTA01\"), function() {pm.expect(instance['version']) == pm.globals.get('VERSIONGTA01');});",
+                                    "        }",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA02\")) {",
+                                    "            pm.test('IDGTA02 not expected on this test', function () {",
+                                    "                console.log(\"Non expected resource, may happen if there is a collision on attributes\")",
+                                    "            });",
+                                    "        }",
+                                    "",
+                                    "        ",
+                                    "   ",
+                                    "}",
+                                    "  ",
+                                    "  "
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{General_Test_Artifact}}generalTestArtifact?description={{DESCRIPTIONGTA01}}",
+                            "host": [
+                                "{{General_Test_Artifact}}generalTestArtifact"
+                            ],
+                            "query": [
+                                {
+                                    "key": "description",
+                                    "value": "{{DESCRIPTIONGTA01}}"
+                                }
+                            ]
+                        },
+                        "description": "This operation filter a GeneralTestArtifact"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/GeneralTestArtifact?fields=id",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test(\"Status code is 200\", function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "var jsonData = pm.response.json();",
+                                    "  ",
+                                    "if (Array.isArray(jsonData) && (jsonData.length > 0)) {",
+                                    "    jsonData.forEach(function (instance, index) {",
+                                    "      ",
+                                    "        var requiredAttributes = ['id','href', 'id'];",
+                                    "      ",
+                                    "        pm.test('Instance must have id, href and filtered attribute', function () { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes)});",
+                                    "        pm.test('Instance has only id, href and filtered attribute', function () { pm.expect(requiredAttributes).to.include.members(Object.keys(instance))});",
+                                    "    });",
+                                    "",
+                                    "    ",
+                                    "}",
+                                    "else { ",
+                                    "  ",
+                                    "    pm.test('Array expected as response', function (){pm.expect.fail()});",
+                                    "  ",
+                                    "",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{General_Test_Artifact}}generalTestArtifact?fields=id",
+                            "host": [
+                                "{{General_Test_Artifact}}generalTestArtifact"
+                            ],
+                            "query": [
+                                {
+                                    "key": "fields",
+                                    "value": "id"
+                                }
+                            ]
+                        },
+                        "description": "This operation filter a GeneralTestArtifact"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/GeneralTestArtifact?id={{IDGTA01}}",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test(\"Status code is 200\", function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "  ",
+                                    "  ",
+                                    "  ",
+                                    "var jsonData = pm.response.json();",
+                                    "  ",
+                                    "if (Array.isArray(jsonData) && (jsonData.length > 0)) {",
+                                    "    jsonData.forEach(function (instance, index) {",
+                                    "      ",
+                                    "        var requiredAttributes = ['description', 'href', 'id', 'version'];",
+                                    "      ",
+                                    "        pm.test('Instance has all mandatory attributes', function () { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) });",
+                                    "      ",
+                                    "      ",
+                                    "      ",
+                                    "        pm.test('Response has description attribute', function() { pm.expect(instance[\"description\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has href attribute', function() { pm.expect(instance[\"href\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has id attribute', function() { pm.expect(instance[\"id\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has version attribute', function() { pm.expect(instance[\"version\"]).to.be.a('string'); });",
+                                    "      ",
+                                    "        pm.test('Body includes value held on description', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['description']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on href', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['href']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on id', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['id']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on version', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['version']);",
+                                    "        });",
+                                    "        // Individualized tests",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA01\")) {",
+                                    "            pm.test('description is ' + pm.globals.get(\"DESCRIPTIONGTA01\"), function() {pm.expect(instance['description']) == pm.globals.get('DESCRIPTIONGTA01');});",
+                                    "            pm.test('href is ' + pm.globals.get(\"HREFGTA01\"), function() {pm.expect(instance['href']) == pm.globals.get('HREFGTA01');});",
+                                    "            pm.test('id is ' + pm.globals.get(\"IDGTA01\"), function() {pm.expect(instance['id']) == pm.globals.get('IDGTA01');});",
+                                    "            pm.test('version is ' + pm.globals.get(\"VERSIONGTA01\"), function() {pm.expect(instance['version']) == pm.globals.get('VERSIONGTA01');});",
+                                    "        }",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA02\")) {",
+                                    "            pm.test('IDGTA02 not expected on this test', function () {",
+                                    "                console.log(\"Non expected resource, may happen if there is a collision on attributes\")",
+                                    "            });",
+                                    "        }",
+                                    "          ",
+                                    "    });",
+                                    "  }",
+                                    "  else {",
+                                    "    var instance = pm.response.json();",
+                                    "    var requiredAttributes = ['description', 'href', 'id', 'version'];",
+                                    "      ",
+                                    "        pm.test('Instance has all mandatory attributes', function () { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) });",
+                                    "      ",
+                                    "      ",
+                                    "      ",
+                                    "        pm.test('Response has description attribute', function() { pm.expect(instance[\"description\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has href attribute', function() { pm.expect(instance[\"href\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has id attribute', function() { pm.expect(instance[\"id\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has version attribute', function() { pm.expect(instance[\"version\"]).to.be.a('string'); });",
+                                    "      ",
+                                    "        pm.test('Body includes value held on description', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['description']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on href', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['href']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on id', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['id']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on version', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['version']);",
+                                    "        });",
+                                    "        // Individualized tests",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA01\")) {",
+                                    "            pm.test('description is ' + pm.globals.get(\"DESCRIPTIONGTA01\"), function() {pm.expect(instance['description']) == pm.globals.get('DESCRIPTIONGTA01');});",
+                                    "            pm.test('href is ' + pm.globals.get(\"HREFGTA01\"), function() {pm.expect(instance['href']) == pm.globals.get('HREFGTA01');});",
+                                    "            pm.test('id is ' + pm.globals.get(\"IDGTA01\"), function() {pm.expect(instance['id']) == pm.globals.get('IDGTA01');});",
+                                    "            pm.test('version is ' + pm.globals.get(\"VERSIONGTA01\"), function() {pm.expect(instance['version']) == pm.globals.get('VERSIONGTA01');});",
+                                    "        }",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA02\")) {",
+                                    "            pm.test('IDGTA02 not expected on this test', function () {",
+                                    "                console.log(\"Non expected resource, may happen if there is a collision on attributes\")",
+                                    "            });",
+                                    "        }",
+                                    "",
+                                    "        ",
+                                    "   ",
+                                    "}",
+                                    "  ",
+                                    "  "
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{General_Test_Artifact}}generalTestArtifact?id={{IDGTA01}}",
+                            "host": [
+                                "{{General_Test_Artifact}}generalTestArtifact"
+                            ],
+                            "query": [
+                                {
+                                    "key": "id",
+                                    "value": "{{IDGTA01}}"
+                                }
+                            ]
+                        },
+                        "description": "This operation filter a GeneralTestArtifact"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/GeneralTestArtifact?fields=version",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test(\"Status code is 200\", function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "var jsonData = pm.response.json();",
+                                    "  ",
+                                    "if (Array.isArray(jsonData) && (jsonData.length > 0)) {",
+                                    "    jsonData.forEach(function (instance, index) {",
+                                    "      ",
+                                    "        var requiredAttributes = ['id','href', 'version'];",
+                                    "      ",
+                                    "        pm.test('Instance must have id, href and filtered attribute', function () { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes)});",
+                                    "        pm.test('Instance has only id, href and filtered attribute', function () { pm.expect(requiredAttributes).to.include.members(Object.keys(instance))});",
+                                    "    });",
+                                    "",
+                                    "    ",
+                                    "}",
+                                    "else { ",
+                                    "  ",
+                                    "    pm.test('Array expected as response', function (){pm.expect.fail()});",
+                                    "  ",
+                                    "",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{General_Test_Artifact}}generalTestArtifact?fields=version",
+                            "host": [
+                                "{{General_Test_Artifact}}generalTestArtifact"
+                            ],
+                            "query": [
+                                {
+                                    "key": "fields",
+                                    "value": "version"
+                                }
+                            ]
+                        },
+                        "description": "This operation filter a GeneralTestArtifact"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "/GeneralTestArtifact?version={{VERSIONGTA01}}",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test(\"Status code is 200\", function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "  ",
+                                    "  ",
+                                    "  ",
+                                    "var jsonData = pm.response.json();",
+                                    "  ",
+                                    "if (Array.isArray(jsonData) && (jsonData.length > 0)) {",
+                                    "    jsonData.forEach(function (instance, index) {",
+                                    "      ",
+                                    "        var requiredAttributes = ['description', 'href', 'id', 'version'];",
+                                    "      ",
+                                    "        pm.test('Instance has all mandatory attributes', function () { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) });",
+                                    "      ",
+                                    "      ",
+                                    "      ",
+                                    "        pm.test('Response has description attribute', function() { pm.expect(instance[\"description\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has href attribute', function() { pm.expect(instance[\"href\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has id attribute', function() { pm.expect(instance[\"id\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has version attribute', function() { pm.expect(instance[\"version\"]).to.be.a('string'); });",
+                                    "      ",
+                                    "        pm.test('Body includes value held on description', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['description']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on href', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['href']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on id', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['id']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on version', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['version']);",
+                                    "        });",
+                                    "        // Individualized tests",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA01\")) {",
+                                    "            pm.test('description is ' + pm.globals.get(\"DESCRIPTIONGTA01\"), function() {pm.expect(instance['description']) == pm.globals.get('DESCRIPTIONGTA01');});",
+                                    "            pm.test('href is ' + pm.globals.get(\"HREFGTA01\"), function() {pm.expect(instance['href']) == pm.globals.get('HREFGTA01');});",
+                                    "            pm.test('id is ' + pm.globals.get(\"IDGTA01\"), function() {pm.expect(instance['id']) == pm.globals.get('IDGTA01');});",
+                                    "            pm.test('version is ' + pm.globals.get(\"VERSIONGTA01\"), function() {pm.expect(instance['version']) == pm.globals.get('VERSIONGTA01');});",
+                                    "        }",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA02\")) {",
+                                    "            pm.test('IDGTA02 not expected on this test', function () {",
+                                    "                console.log(\"Non expected resource, may happen if there is a collision on attributes\")",
+                                    "            });",
+                                    "        }",
+                                    "          ",
+                                    "    });",
+                                    "  }",
+                                    "  else {",
+                                    "    var instance = pm.response.json();",
+                                    "    var requiredAttributes = ['description', 'href', 'id', 'version'];",
+                                    "      ",
+                                    "        pm.test('Instance has all mandatory attributes', function () { pm.expect(Object.keys(instance)).to.include.members(requiredAttributes) });",
+                                    "      ",
+                                    "      ",
+                                    "      ",
+                                    "        pm.test('Response has description attribute', function() { pm.expect(instance[\"description\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has href attribute', function() { pm.expect(instance[\"href\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has id attribute', function() { pm.expect(instance[\"id\"]).to.be.a('string'); });",
+                                    "        pm.test('Response has version attribute', function() { pm.expect(instance[\"version\"]).to.be.a('string'); });",
+                                    "      ",
+                                    "        pm.test('Body includes value held on description', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['description']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on href', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['href']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on id', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['id']);",
+                                    "        });",
+                                    "        pm.test('Body includes value held on version', function () {",
+                                    "            pm.expect(pm.response.text()).to.include(instance['version']);",
+                                    "        });",
+                                    "        // Individualized tests",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA01\")) {",
+                                    "            pm.test('description is ' + pm.globals.get(\"DESCRIPTIONGTA01\"), function() {pm.expect(instance['description']) == pm.globals.get('DESCRIPTIONGTA01');});",
+                                    "            pm.test('href is ' + pm.globals.get(\"HREFGTA01\"), function() {pm.expect(instance['href']) == pm.globals.get('HREFGTA01');});",
+                                    "            pm.test('id is ' + pm.globals.get(\"IDGTA01\"), function() {pm.expect(instance['id']) == pm.globals.get('IDGTA01');});",
+                                    "            pm.test('version is ' + pm.globals.get(\"VERSIONGTA01\"), function() {pm.expect(instance['version']) == pm.globals.get('VERSIONGTA01');});",
+                                    "        }",
+                                    "        if (instance.id == pm.globals.get(\"IDGTA02\")) {",
+                                    "            pm.test('IDGTA02 not expected on this test', function () {",
+                                    "                console.log(\"Non expected resource, may happen if there is a collision on attributes\")",
+                                    "            });",
+                                    "        }",
+                                    "",
+                                    "        ",
+                                    "   ",
+                                    "}",
+                                    "  ",
+                                    "  "
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{General_Test_Artifact}}generalTestArtifact?version={{VERSIONGTA01}}",
+                            "host": [
+                                "{{General_Test_Artifact}}generalTestArtifact"
+                            ],
+                            "query": [
+                                {
+                                    "key": "version",
+                                    "value": "{{VERSIONGTA01}}"
+                                }
+                            ]
+                        },
+                        "description": "This operation filter a GeneralTestArtifact"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "E1",
+            "item": [
+                {
+                    "name": "/GeneralTestArtifact/404ID",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test(\"Status code is 404\", function () {",
+                                    "    pm.response.to.have.status(404);",
+                                    "});",
+                                    "",
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{General_Test_Artifact}}GeneralTestArtifact/56b1047c-2f62-4ed5-a52f-c5545c4a1a72",
+                            "host": [
+                                "{{General_Test_Artifact}}GeneralTestArtifact"
+                            ],
+                            "path": [
+                                "56b1047c-2f62-4ed5-a52f-c5545c4a1a72"
+                            ]
+                        },
+                        "description": "This operation search for one of the created GeneralTestArtifact"
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "url": " http://localhost:8710/tmf-api/generalTestArtifact/v4/",
+    "headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    },
+    "payloads": {
+        "GeneralTestArtifact": {
+            "POST": {
+                "payload": {
+                    "description": "Sample general test artifact",
+                    "version": "1.2.3"
+                }
+            }
+        }
+    }
+}
